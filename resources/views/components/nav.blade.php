@@ -13,19 +13,26 @@
         </li>
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
-        <li><select name="genres" id="genres">
-                <option value="all">All</option>
-                <option value="fiction">Fiction</option>
-                <option value="non-fiction">Non-Fiction</option>
-                <option value="poetry">Poetry</option>
-                <option value="short-stories">Short Stories</option>
-                <option value="novels">Novels</option>
+        <li><select class="rail-select" name="genres" id="genres" aria-label="Genre">
+                <option value="">Genre</option>
+                <x-genre-options />
             </select></li>
     </ul>
 
     <div class="rail-account">
         <p class="rail-note">Post a piece and leave it open for anyone to read.</p>
-        <a class="btn btn-ghost" href="#">Login</a>
-        <a class="btn btn-ember" href="#">Register</a>
+        @auth
+            <a class="btn btn-ghost" href="{{ route('dashboard') }}"
+                @if (request()->routeIs('dashboard')) aria-current="page" @endif>Dashboard</a>
+            <form method="post" action="{{ route('logout') }}">
+                @csrf
+                <button class="btn btn-ember" type="submit">Log out</button>
+            </form>
+        @else
+            <a class="btn btn-ghost" href="{{ route('login') }}"
+                @if (request()->routeIs('login')) aria-current="page" @endif>Login</a>
+            <a class="btn btn-ember" href="{{ route('register') }}"
+                @if (request()->routeIs('register')) aria-current="page" @endif>Register</a>
+        @endauth
     </div>
 </nav>

@@ -22,6 +22,7 @@
         </main>
         @include('components.nav')
     </div>
+    @stack('scripts')
 </body>
 
 </html>
